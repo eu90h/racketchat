@@ -46,7 +46,7 @@
 			(unless (eq? #f port)
 				(define msg (read-line port))
 				(unless (eof-object? msg)
-					(send text insert (string-append (read-line port) "\n"))))
+					(send text insert (string-append msg "\n"))))
 			(msg-checker (sync/timeout 0 in)))))))
 
 (define (valid-username? name)
