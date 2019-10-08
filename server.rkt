@@ -64,11 +64,12 @@
 
 	(with-handlers ([exn:fail:network? exn-handler])
 		(define name (read-line in))
-		(unless (valid-username? name)
-			(write-byte 0 out) (flush-output out)
-			(get-username in out))
-		(write-byte 1 out) (flush-output out)
-		name))
+		(cond [(not (valid-username? name))
+				(write-byte 0 out) (flush-output out)
+				(get-username in out)]
+			[else
+				(write-byte 1 out) (flush-output out)
+				name))
 
 (define (accept-and-handle listener)
 	(define cust (make-custodian))
